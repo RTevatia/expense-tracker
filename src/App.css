@@ -1,148 +1,333 @@
+/* ── Layout ── */
 .app {
-  max-width: 800px;
+  max-width: 880px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 52px 24px 96px;
 }
 
-h1 {
-  margin-bottom: 4px;
+/* ── Header ── */
+.app-header {
+  margin-bottom: 44px;
+  animation: fadeUp 0.5s ease both;
 }
 
-.subtitle {
+.app-header h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #fff;
+  line-height: 1;
+}
+
+.app-header h1 .accent { color: var(--accent); }
+
+.app-header .subtitle {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+/* ── Card base ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
   margin-bottom: 20px;
-  color: #666;
 }
 
+/* ── Summary ── */
 .summary {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 24px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+  animation: fadeUp 0.5s 0.05s ease both;
 }
 
 .summary-card {
-  flex: 1;
-  border: 1px solid #ddd;
-  padding: 14px;
-  background: #fff;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px 24px;
+  position: relative;
+  overflow: hidden;
 }
+
+.summary-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  border-radius: 14px 14px 0 0;
+}
+
+.summary-card.income::after  { background: var(--income); }
+.summary-card.expense::after { background: var(--expense); }
+.summary-card.balance::after { background: var(--gold); }
 
 .summary-card h3 {
-  font-size: 13px;
-  color: #888;
-  margin-bottom: 4px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
 }
 
-.income-amount {
-  color: green;
-  font-size: 20px;
-  font-weight: bold;
+.summary-card .amount {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1;
 }
 
-.expense-amount {
-  color: red;
-  font-size: 20px;
-  font-weight: bold;
-}
+.income-amount  { color: var(--income); }
+.expense-amount { color: var(--expense); }
+.balance-amount { color: var(--gold); }
 
-.balance-amount {
-  font-size: 20px;
-  font-weight: bold;
-}
-
+/* ── Add Transaction ── */
 .add-transaction {
-  border: 1px solid #ddd;
-  padding: 16px;
-  margin-bottom: 24px;
-  background: #fff;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 20px;
+  animation: fadeUp 0.5s 0.1s ease both;
 }
 
 .add-transaction h2 {
-  font-size: 16px;
-  margin-bottom: 12px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
 }
+
+.type-toggle {
+  display: flex;
+  background: var(--surface-2);
+  border-radius: 8px;
+  padding: 3px;
+  gap: 3px;
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.type-btn {
+  flex: 1;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Mulish', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  background: transparent;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.type-btn.active-income  { background: var(--income);  color: #000; }
+.type-btn.active-expense { background: var(--expense); color: #fff; }
 
 form {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   flex-wrap: wrap;
+  align-items: stretch;
 }
 
 form input,
 form select {
-  padding: 8px;
-  border: 1px solid #ccc;
-  font-size: 14px;
+  padding: 10px 14px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: 'Mulish', sans-serif;
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.15s;
+  height: 40px;
 }
 
-form input[type="text"] {
-  flex: 2;
-}
+form input:focus,
+form select:focus { border-color: var(--accent); }
 
-form input[type="number"] {
-  flex: 1;
-}
+form input::placeholder { color: var(--muted); }
+form select option      { background: var(--surface-2); }
 
-form select {
-  flex: 1;
-}
+form input[type="text"]   { flex: 2; min-width: 140px; }
+form input[type="number"] { flex: 1; min-width: 100px; }
+form select               { flex: 1; min-width: 120px; cursor: pointer; }
 
-form button {
-  padding: 8px 20px;
-  background: #333;
-  color: #fff;
+form button[type="submit"] {
+  padding: 0 24px;
+  height: 40px;
+  background: var(--accent);
+  color: #000;
   border: none;
+  border-radius: 8px;
+  font-family: 'Mulish', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   cursor: pointer;
-  font-size: 14px;
+  transition: opacity 0.15s, transform 0.1s;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
+form button[type="submit"]:hover  { opacity: 0.85; transform: translateY(-1px); }
+form button[type="submit"]:active { transform: translateY(0); }
+
+/* ── Spending Chart card ── */
+.chart-card {
+  animation: fadeUp 0.5s 0.15s ease both;
+}
+
+.chart-card h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ── Transactions ── */
 .transactions {
-  margin-bottom: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 20px;
+  animation: fadeUp 0.5s 0.2s ease both;
+}
+
+.transactions-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .transactions h2 {
-  font-size: 16px;
-  margin-bottom: 12px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 .filters {
   display: flex;
   gap: 8px;
-  margin-bottom: 12px;
 }
 
 .filters select {
-  padding: 6px;
-  border: 1px solid #ccc;
-  font-size: 13px;
+  padding: 6px 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-family: 'Mulish', sans-serif;
+  font-size: 0.75rem;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s;
 }
 
+.filters select:focus { border-color: var(--accent); }
+.filters select option { background: var(--surface-2); }
+
+/* ── Table ── */
 table {
   width: 100%;
   border-collapse: collapse;
 }
 
-thead {
-  background: #f5f5f5;
-}
-
-th, td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-  font-size: 14px;
-}
+thead tr { border-bottom: 1px solid var(--border); }
 
 th {
-  font-size: 12px;
-  color: #888;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0 10px 12px;
+  text-align: left;
+}
+
+td {
+  padding: 12px 10px;
+  font-size: 0.875rem;
+  border-bottom: 1px solid rgba(28, 31, 58, 0.6);
+  vertical-align: middle;
+}
+
+tbody tr:last-child td { border-bottom: none; }
+tbody tr { transition: background 0.1s; }
+tbody tr:hover { background: rgba(255, 255, 255, 0.025); }
+
+.date-cell {
+  color: var(--muted-light);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+}
+
+.amount-cell {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* ── Category badge ── */
+.category-badge {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
+/* ── Delete button ── */
 .delete-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  font-size: 0.75rem;
   padding: 4px 10px;
-  background: #eee;
-  border: 1px solid #ccc;
   cursor: pointer;
-  font-size: 12px;
-  color: #333;
+  font-family: 'Mulish', sans-serif;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.delete-btn:hover {
+  border-color: var(--expense);
+  color: var(--expense);
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
 }

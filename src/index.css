@@ -4,8 +4,26 @@
   box-sizing: border-box;
 }
 
+:root {
+  --bg: #07080f;
+  --surface: #0e0f1d;
+  --surface-2: #13152a;
+  --border: #1c1f3a;
+  --accent: #00e5a0;
+  --income: #00e5a0;
+  --expense: #ff5252;
+  --gold: #f5c842;
+  --text: #dce0ff;
+  --muted: #525878;
+  --muted-light: #7880aa;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #ffffff;
-  color: #333;
+  font-family: 'Mulish', sans-serif;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(0, 229, 160, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 110%, rgba(99, 102, 241, 0.06) 0%, transparent 60%);
+  color: var(--text);
+  min-height: 100vh;
 }

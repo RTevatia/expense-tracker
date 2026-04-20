@@ -43,10 +43,18 @@ function TransactionForm({ onAdd }) {
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
         />
-        <select value={type} onChange={(e) => setType(e.target.value)}>
-          <option value="income">Income</option>
-          <option value="expense">Expense</option>
-        </select>
+        <div className="type-toggle">
+          <button
+            type="button"
+            className={`type-btn ${type === 'income' ? 'active-income' : ''}`}
+            onClick={() => setType('income')}
+          >Income</button>
+          <button
+            type="button"
+            className={`type-btn ${type === 'expense' ? 'active-expense' : ''}`}
+            onClick={() => setType('expense')}
+          >Expense</button>
+        </div>
         <select value={category} onChange={(e) => setCategory(e.target.value)}>
           {categories.map(cat => (
             <option key={cat} value={cat}>{cat}</option>
