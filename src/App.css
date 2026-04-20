@@ -326,6 +326,91 @@ tbody tr:hover { background: rgba(255, 255, 255, 0.025); }
   color: var(--expense);
 }
 
+/* ── Form error ── */
+.form-error {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  color: var(--expense);
+  font-weight: 600;
+}
+
+/* ── Delete confirm ── */
+.delete-confirm {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.confirm-btn {
+  padding: 4px 10px;
+  background: var(--expense);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Mulish', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.confirm-btn:hover { opacity: 0.8; }
+
+.cancel-btn {
+  padding: 4px 10px;
+  background: transparent;
+  color: var(--muted-light);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: 'Mulish', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.cancel-btn:hover { color: var(--text); border-color: var(--muted); }
+
+/* ── Empty state ── */
+.empty-state {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.875rem;
+  padding: 32px 0 !important;
+}
+
+/* ── Screen-reader only ── */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Chart tooltip ── */
+.chart-tooltip {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--text);
+}
+
+.chart-tooltip-label {
+  font-family: 'Mulish', sans-serif;
+  font-weight: 700;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted-light);
+  margin-bottom: 4px;
+}
+
 /* ── Animations ── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(14px); }

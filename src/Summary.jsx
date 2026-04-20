@@ -1,11 +1,13 @@
+import { formatCurrency } from './utils.js'
+
 function Summary({ transactions }) {
   const totalIncome = transactions
     .filter(t => t.type === "income")
-    .reduce((sum, t) => sum + parseFloat(t.amount), 0);
+    .reduce((sum, t) => sum + t.amount, 0);
 
   const totalExpenses = transactions
     .filter(t => t.type === "expense")
-    .reduce((sum, t) => sum + parseFloat(t.amount), 0);
+    .reduce((sum, t) => sum + t.amount, 0);
 
   const balance = totalIncome - totalExpenses;
 
@@ -13,15 +15,17 @@ function Summary({ transactions }) {
     <div className="summary">
       <div className="summary-card income">
         <h3>Income</h3>
-        <span className="amount income-amount">${totalIncome.toLocaleString()}</span>
+        <span className="amount income-amount">${formatCurrency(totalIncome)}</span>
       </div>
       <div className="summary-card expense">
         <h3>Expenses</h3>
-        <span className="amount expense-amount">${totalExpenses.toLocaleString()}</span>
+        <span className="amount expense-amount">${formatCurrency(totalExpenses)}</span>
       </div>
       <div className="summary-card balance">
         <h3>Balance</h3>
-        <span className="amount balance-amount">${balance.toLocaleString()}</span>
+        <span className={`amount ${balance >= 0 ? 'balance-amount' : 'expense-amount'}`}>
+          ${formatCurrency(balance)}
+        </span>
       </div>
     </div>
   );

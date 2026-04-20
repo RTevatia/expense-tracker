@@ -3,35 +3,16 @@ import {
   PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer,
   BarChart, Bar, XAxis, YAxis, CartesianGrid,
 } from 'recharts';
-
-const COLORS = {
-  food:          '#fb923c',
-  housing:       '#818cf8',
-  utilities:     '#2dd4bf',
-  transport:     '#fbbf24',
-  entertainment: '#f472b6',
-  salary:        '#00e5a0',
-  other:         '#94a3b8',
-};
+import { CATEGORY_COLORS } from './constants.js';
+import { formatCurrency } from './utils.js';
 
 const CustomTooltip = ({ active, payload }) => {
   if (!active || !payload?.length) return null;
+  const { name, value } = payload[0];
   return (
-    <div style={{
-      background: '#13152a',
-      border: '1px solid #1c1f3a',
-      borderRadius: 8,
-      padding: '10px 14px',
-      fontFamily: "'JetBrains Mono', monospace",
-      fontSize: '0.8rem',
-      color: '#dce0ff',
-    }}>
-      <div style={{ fontFamily: "'Mulish', sans-serif", fontWeight: 700, marginBottom: 4, color: '#7880aa', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-        {payload[0].name}
-      </div>
-      <div style={{ color: COLORS[payload[0].name] || '#94a3b8' }}>
-        ${payload[0].value.toFixed(2)}
-      </div>
+    <div className="chart-tooltip">
+      <div className="chart-tooltip-label">{name}</div>
+      <div style={{ color: CATEGORY_COLORS[name] || '#94a3b8' }}>${formatCurrency(value)}</div>
     </div>
   );
 };
@@ -91,6 +72,7 @@ function SpendingChart({ transactions }) {
         </div>
       </div>
 
+      {/* ResponsiveContainer requires a block-level parent with defined width */}
       <ResponsiveContainer width="100%" height={300}>
         {chartType === 'pie' ? (
           <PieChart>
@@ -105,7 +87,7 @@ function SpendingChart({ transactions }) {
               labelLine={{ stroke: '#1c1f3a' }}
             >
               {data.map((entry) => (
-                <Cell key={entry.name} fill={COLORS[entry.name] || '#94a3b8'} />
+                <Cell key={entry.name} fill={CATEGORY_COLORS[entry.name] || '#94a3b8'} />
               ))}
             </Pie>
             <Tooltip content={<CustomTooltip />} />
@@ -121,9 +103,9 @@ function SpendingChart({ transactions }) {
             <XAxis dataKey="name" tick={axisStyle} axisLine={false} tickLine={false} />
             <YAxis tickFormatter={(v) => `$${v}`} tick={axisStyle} axisLine={false} tickLine={false} />
             <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.03)' }} />
-            <Bar dataKey="value" name="Amount" radius={[6, 6, 0, 0]}>
+            <Bar dataKey="value" radius={[6, 6, 0, 0]}>
               {data.map((entry) => (
-                <Cell key={entry.name} fill={COLORS[entry.name] || '#94a3b8'} />
+                <Cell key={entry.name} fill={CATEGORY_COLORS[entry.name] || '#94a3b8'} />
               ))}
             </Bar>
           </BarChart>
